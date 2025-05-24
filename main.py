@@ -1,6 +1,21 @@
-
-import os
 from dotenv import load_dotenv
+import os
+import requests
+
+# Load environment variables from .env
+load_dotenv()
+
+# Get API key from .env
+api_key = os.getenv("GROQ_API_KEY")
+
+# Make test request to Groq's models endpoint
+response = requests.get(
+    "https://api.groq.com/openai/v1/models",
+    headers={"Authorization": f"Bearer {api_key}"}
+)
+
+# Print the response (list of available models)
+print(response.json())
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_groq import ChatGroq
 from langchain_qdrant import QdrantVectorStore, RetrievalMode
